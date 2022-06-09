@@ -17,8 +17,8 @@ namespace Shopee.Controllers
 
         [HttpPost]
         [Route("Check")]
-        [ProducesResponseType(typeof(UserLoginResponse), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> checkIfUserExist([FromBody] Users userLoginRequest)
+        [ProducesResponseType(typeof(RequestResponse), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> checkIfUserExist([FromBody] UserLoginRequest userLoginRequest)
         {
             var result = await _userService.checkUser(userLoginRequest);
             return Ok(result);
@@ -26,10 +26,10 @@ namespace Shopee.Controllers
 
         [HttpPost]
         [Route("Add")]
-        [ProducesResponseType(typeof(UserLoginResponse), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> addUser([FromBody] Users userLoginRequest)
+        [ProducesResponseType(typeof(RequestResponse), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> addUser([FromBody] AddUserRequest addUserRequest)
         {
-            var result = await _userService.addUser(userLoginRequest);
+            var result = await _userService.addUser(addUserRequest);
             return Ok(result);
         }
     }

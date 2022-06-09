@@ -12,7 +12,7 @@ namespace Shopee.Services
             _shopeeContext = shopeeContext;
         }
 
-        public async Task<UserLoginResponse> checkUser(Models.Users userLoginRequest)
+        public async Task<RequestResponse> checkUser(UserLoginRequest userLoginRequest)
         {
             //4220
             var checkIfUserExist = _shopeeContext.Users.Where(x => x.Username == userLoginRequest.username
@@ -20,7 +20,7 @@ namespace Shopee.Services
 
             if (checkIfUserExist != null)
             {
-                var response = new UserLoginResponse
+                var response = new RequestResponse
                 {
                     responseMessage = checkIfUserExist.Username + " is found! ",
                     responseCode = 1
@@ -30,7 +30,7 @@ namespace Shopee.Services
             }
             else
             {
-                var response = new UserLoginResponse
+                var response = new RequestResponse
                 {
                     responseMessage = userLoginRequest.username + " is not found! ",
                     responseCode = 9
@@ -41,18 +41,20 @@ namespace Shopee.Services
             //dependency injection
         }
 
-        public async Task<UserLoginResponse> addUser(Users addUserRequest)
+        public async Task<RequestResponse> addUser(AddUserRequest addUserRequest)
         {
             var newUser = new User
             {
                 Username = addUserRequest.username,
-                Password = addUserRequest.password
+                Password = addUserRequest.password,
+                Firstname = addUserRequest.firstname,
+                Lastname = addUserRequest.lastname
             };
 
             _shopeeContext.Users.Add(newUser);
             _shopeeContext.SaveChanges();
 
-            var response = new UserLoginResponse
+            var response = new RequestResponse
             {
                 responseMessage = addUserRequest.username + " is added! ",
                 responseCode = 1

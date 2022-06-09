@@ -4,7 +4,7 @@ namespace Shopee.Services
 {
     public interface IUserService
     {
-        Task<UserLoginResponse> checkUser(Users userLoginRequest);
-        Task<UserLoginResponse> addUser(Users addUserRequest);
+        Task<RequestResponse> checkUser(UserLoginRequest userLoginRequest);
+        Task<RequestResponse> addUser(AddUserRequest addUserRequest);
     }
 }
