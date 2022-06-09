@@ -12,7 +12,7 @@ namespace Shopee.Services
             _shopeeContext = shopeeContext;
         }
 
-        public async Task<UserLoginResponse> checkUser(UserLoginRequest userLoginRequest)
+        public async Task<UserLoginResponse> checkUser(Models.Users userLoginRequest)
         {
             //4220
             var checkIfUserExist = _shopeeContext.Users.Where(x => x.Username == userLoginRequest.username
@@ -38,8 +38,27 @@ namespace Shopee.Services
 
                 return response;
             }
-
             //dependency injection
+        }
+
+        public async Task<UserLoginResponse> addUser(Users addUserRequest)
+        {
+            var newUser = new User
+            {
+                Username = addUserRequest.username,
+                Password = addUserRequest.password
+            };
+
+            _shopeeContext.Users.Add(newUser);
+            _shopeeContext.SaveChanges();
+
+            var response = new UserLoginResponse
+            {
+                responseMessage = addUserRequest.username + " is added! ",
+                responseCode = 1
+            };
+
+            return response;
         }
     }
 }

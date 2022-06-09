@@ -1,6 +1,6 @@
 ﻿namespace Shopee.Models
 {
-    public class UserLoginRequest
+    public class Users
     {
         //2137
         public string username { get; set; }
